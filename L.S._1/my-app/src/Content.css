@@ -1,0 +1,10 @@
+.main-div-content{
+    display:flex;
+    margin-left:50px;
+    margin-right:10px;
+    border:1px solid black;
+}
+.p-content{
+    line-height:40px;
+    margin:0 10px;
+}

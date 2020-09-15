@@ -1,0 +1,12 @@
+.header-section{
+    display:flex;
+    justify-content: space-between;
+    width:99vw;
+    margin:0 auto;
+    border:1px solid black;
+}
+.header-div{
+    display:flex;
+    margin:10px;
+    border: 1px solid red;
+}
