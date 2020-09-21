@@ -1,0 +1,27 @@
+.form{
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+    width:14vw;
+    height:50px;
+    background:rgb(230,230,230);
+    border:1px solid black;
+    margin-left:2vw;
+}
+
+.input{
+    display:flex;
+    border:1px solid rgb(210,210,210);
+    height:30px;
+    margin-top:10px;
+    margin-left:1vw;
+}
+
+.button{
+    display:flex;
+    border:1px solid rgb(210,210,210);
+    height:30px;
+    margin-top:12px;
+    margin-right:1vw;
+    padding-top:6px;
+}
