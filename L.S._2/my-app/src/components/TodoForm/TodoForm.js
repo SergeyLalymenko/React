@@ -18,7 +18,7 @@ export default class TodoForm extends Component {
                 <input type="text" className="input" value={this.state.value} onChange={this.handleChange}/>
                 <button
                 className="button"
-                onClick={() => this.props.addTodo(this.state.value)}
+                onClick={() => this.props.onAddTodo(this.state.value)}
                 >
                     Add
                 </button>

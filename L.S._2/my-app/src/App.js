@@ -48,19 +48,19 @@ export default class App extends Component {
     })
   })
 
-  addTodo(title){
+  addTodo = ((title) => {
     if(title !== ''){
         this.setState({
           todoListItems: [...this.state.todoListItems, {id: Date.now(),title: title,isDone: false}]
         })
     }
-}
+  })
 
   render() {
     return (
       <div className="app-container">
         <TodoList todos={this.state.todoListItems} onToggle={this.toggleTodo} onDelete={this.deleteTodo}/>
-        <TodoForm addTodo={this.addTodo.bind(this)}/>
+        <TodoForm onAddTodo={this.addTodo}/>
       </div>
     )
   }
