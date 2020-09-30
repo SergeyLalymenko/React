@@ -1,0 +1,22 @@
+.form-buttons-container{
+    display:flex;
+    justify-content:space-between;
+    width:200px;
+    margin:0 auto;
+    margin-top:20px;
+}
+
+.form-button{
+    display:flex;
+    justify-content:center;
+    padding-top:10px;
+    border:1px solid white;
+    background-color:black;
+    color:white;
+    width:80px;
+    height:40px;
+}
+
+.form-button.add{
+    display:none;
+}

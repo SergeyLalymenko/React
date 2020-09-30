@@ -1,0 +1,19 @@
+.contacts-list-container{
+    display:flex;
+    flex-direction:column;
+    width:30vw;
+}
+
+.contacts-list-add-btn{
+    display:flex;
+    width:80px;
+    height:30px;
+    padding-top:6px;
+    margin-top:10px;
+    margin-left:10px;
+    border-radius: 15px 5px;
+    justify-content:center;
+    color:white;
+    border:1px solid white;
+    background-color:rgb(70,190,170);
+}
