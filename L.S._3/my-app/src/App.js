@@ -5,6 +5,10 @@ import './App.css'
 
 
 export default class App extends Component {
+  constructor(){
+    super();
+    this.contacts = [];
+  }
 
   state = {
     contacts: [],
@@ -13,11 +17,11 @@ export default class App extends Component {
         surname: '',
         phone: '',
         email: '',
-        operation: '',
+        targetElementId: '',
     },
   };
 
-  contacts = [];
+
 
   componentDidMount(){
     let data = localStorage.getItem('contacts');
@@ -48,49 +52,22 @@ export default class App extends Component {
         surname: element.surname,
         phone: element.phone,
         email: element.email,
-        operation: id,
+        targetElementId: id,
       }
     })
   }
 
-  handleNameChange = (e) => {
+  handleFormChange = (e) => {
     this.setState({
       form: {
         ...this.state.form,
-        name: e.target.value,
-      }
-    });
-  }
-
-  handleSurnameChange = (e) => {
-    this.setState({
-      form: {
-        ...this.state.form,
-        surname: e.target.value,
-      }
-    });
-  }
-
-  handlePhoneChange = (e) => {
-    this.setState({
-      form: {
-        ...this.state.form,
-        phone: e.target.value,
-      }
-    });
-  }
-
-  handleEmailChange = (e) => {
-    this.setState({
-      form: {
-        ...this.state.form,
-        email: e.target.value,
+        [e.target.name]: e.target.value,
       }
     });
   }
 
   onSaveBtnClick = () => {
-    if(this.state.form.operation){
+    if(this.state.form.targetElementId){
       this.changeContact();
     } else{
       this.addContact();
@@ -100,7 +77,7 @@ export default class App extends Component {
 
   changeContact(){
     this.contacts = this.state.contacts.map((item) => {
-      if(item.id !== this.state.form.operation){
+      if(item.id !== this.state.form.targetElementId){
         return item;
       } else{
         return {
@@ -135,7 +112,7 @@ export default class App extends Component {
         surname: '',
         phone: '',
         email: '',
-        operation: '',
+        targetElementId: '',
       }
     })
   }
@@ -147,13 +124,13 @@ export default class App extends Component {
         surname: '',
         phone: '',
         email: '',
-        operation: '',
+        targetElementId: '',
       }
     })
   }
 
   onDeleteBtnClick = () => {
-    this.contacts = this.state.contacts.filter((item) => item.id !== this.state.form.operation);
+    this.contacts = this.state.contacts.filter((item) => item.id !== this.state.form.targetElementId);
     this.setState({
       contacts: this.contacts,
       form: {
@@ -161,7 +138,7 @@ export default class App extends Component {
         surname: '',
         phone: '',
         email: '',
-        operation: this.state.form.operation,
+        targetElementId: this.state.form.targetElementId,
       }
     })
     localStorage.setItem('contacts', JSON.stringify(this.contacts))
@@ -177,10 +154,7 @@ export default class App extends Component {
         />
         <ContactsForm contacts={this.state.contacts}
           form={this.state.form}
-          onHandleNameChange={this.handleNameChange}
-          onHandleSurnameChange={this.handleSurnameChange}
-          onHandlePhoneChange={this.handlePhoneChange}
-          onHandleEmailChange={this.handleEmailChange}
+          onHandleFormChange={this.handleFormChange}
           onSaveBtnClick={this.onSaveBtnClick}
           onDeleteBtnClick={this.onDeleteBtnClick}
         />
