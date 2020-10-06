@@ -14,9 +14,6 @@ export default class Contact extends Component {
                 <span>
                     {this.props.item.phone}
                 </span>
-                <span>
-                    {this.props.item.email}
-                </span>
             </div>
         )
     }

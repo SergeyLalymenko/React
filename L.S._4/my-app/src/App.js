@@ -1,14 +1,11 @@
 import React, { Component } from 'react'
 import ContactsForm from './components/ContactsForm/ContactsForm'
 import ContactsList from './components/ContactsList/ContactsList'
+import contactsService from './contactsService'
 import './App.css'
 
 
 export default class App extends Component {
-  constructor(){
-    super();
-    this.contacts = [];
-  }
 
   state = {
     contacts: [],
@@ -16,7 +13,6 @@ export default class App extends Component {
         name: '',
         surname: '',
         phone: '',
-        email: '',
         targetElementId: '',
     },
   };
@@ -24,24 +20,12 @@ export default class App extends Component {
 
 
   componentDidMount(){
-    let data = localStorage.getItem('contacts');
-    if(data){
-      this.contacts = JSON.parse(data);
-      this.setState({
-        contacts: this.contacts
-      })
-    } else{
-      this.contacts = [{
-        name: 'Bob',
-        surname: 'Smith',
-        phone: '0505050',
-        email: '@kat.com',
-        id: 1,
-      }]
-      this.setState({
-        contacts: this.contacts
-      })
-    }
+    contactsService.get('/')
+      .then(({data}) => {
+        this.setState({
+        contacts: data
+        });
+    });
   }
 
   fillContactForm = (id) => {
@@ -51,7 +35,6 @@ export default class App extends Component {
         name: element.name,
         surname: element.surname,
         phone: element.phone,
-        email: element.email,
         targetElementId: id,
       }
     })
@@ -72,11 +55,10 @@ export default class App extends Component {
     } else{
       this.addContact();
     }
-    localStorage.setItem('contacts',JSON.stringify(this.contacts));
   }
 
   changeContact(){
-    this.contacts = this.state.contacts.map((item) => {
+    const contacts = this.state.contacts.map((item) => {
       if(item.id !== this.state.form.targetElementId){
         return item;
       } else{
@@ -84,37 +66,32 @@ export default class App extends Component {
           name: this.state.form.name,
           surname: this.state.form.surname,
           phone: this.state.form.phone,
-          email: this.state.form.email,
           id: item.id,
         }
       }
     });
     this.setState({
-      contacts: this.contacts
+      contacts: contacts
     })
+    this.sendChangeContactRequest(contacts);
   }
 
   addContact(){
-    this.contacts = [
-      ...this.state.contacts,
-      {
-        name: this.state.form.name,
-        surname: this.state.form.surname,
-        phone: this.state.form.phone,
-        email: this.state.form.email,
-        id: Date.now(),
-      }
-    ]
-    this.setState({
-      contacts: this.contacts,
-      form: {
-        name: '',
-        surname: '',
-        phone: '',
-        email: '',
-        targetElementId: '',
-      }
-    })
+    const newContact = {
+      name: this.state.form.name,
+      surname: this.state.form.surname,
+      phone: this.state.form.phone,
+    };
+    contactsService.post('/', newContact)
+      .then(({data}) => this.setState({
+        contacts: [...this.state.contacts, data],
+        form: {
+          name: '',
+          surname: '',
+          phone: '',
+          targetElementId: '',
+        }
+      }))
   }
 
   onAddBtnClick = () => {
@@ -123,27 +100,33 @@ export default class App extends Component {
         name: '',
         surname: '',
         phone: '',
-        email: '',
         targetElementId: '',
       }
     })
   }
 
   onDeleteBtnClick = () => {
-    this.contacts = this.state.contacts.filter((item) => item.id !== this.state.form.targetElementId);
+    const contacts = this.state.contacts.filter((item) => item.id !== this.state.form.targetElementId);
     this.setState({
-      contacts: this.contacts,
+      contacts: contacts,
       form: {
         name: '',
         surname: '',
         phone: '',
-        email: '',
         targetElementId: this.state.form.targetElementId,
       }
     })
-    localStorage.setItem('contacts', JSON.stringify(this.contacts))
+    this.sendDeleteContactRequest();
   }
 
+  sendDeleteContactRequest(){
+    contactsService.delete('/' + this.state.form.targetElementId);
+  }
+
+  sendChangeContactRequest(element){
+    const selectedContact = element.find((item) => item.id === this.state.form.targetElementId);
+    contactsService.put('/' + this.state.form.targetElementId, selectedContact);
+  }
 
   render() {
     return (
