@@ -108,8 +108,8 @@ function App(){
     contactsService.delete('/' + form.targetElementId);
   }
 
-  function sendChangeContactRequest(element){
-    const selectedContact = element.find((item) => item.id === form.targetElementId);
+  function sendChangeContactRequest(arr){
+    const selectedContact = arr.find((item) => item.id === form.targetElementId);
     contactsService.put('/' + form.targetElementId, selectedContact);
   }
 
