@@ -114,7 +114,7 @@ function App({contacts, form, setContacts, setForm, setContact, setNewContact, d
     )
 }
 
-function mapStateToProps(state, props){
+function mapStateToProps(state){
   return {
       contacts: state.contacts,
       form: state.form
