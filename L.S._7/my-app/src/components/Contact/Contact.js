@@ -2,16 +2,16 @@ import React from 'react'
 import './Contact.css'
 
 
-function Contact(props){
+function Contact({onContactClick, item}){
     return (
         <div className="contact-item"
-            onClick = {() => props.onContactClick(props.item.id)}
+            onClick = {() => onContactClick(item.id)}
             >
             <span>
-                {props.item.name + ' ' + props.item.surname}
+                {item.name + ' ' + item.surname}
             </span>
             <span>
-                {props.item.phone}
+                {item.phone}
             </span>
         </div>
     )

@@ -1,21 +1,21 @@
-import React, { Component } from 'react'
+import React from 'react'
 import './TodoItem.css'
 
-export default class TodoItem extends Component {
-    render() {
-        return (
-            <div
-                className={"todo-item" + (this.props.item.isDone ? " done" : "")}
-                onClick={() => this.props.onToggle(this.props.item.id)}
+function TodoItem({item, onToggle}){
+    return (
+        <li
+            className={"todo-item" + (item.completed ? " done" : "")}
+            onClick={() => onToggle(item)}
+            >
+            {item.title}
+            {/* <span
+                className="delete-btn"
+                onClick={(e) => this.props.onDelete(e, this.props.item.id)}
                 >
-                {this.props.item.title}
-                <span
-                    className="delete-btn"
-                    onClick={(e) => this.props.onDelete(e, this.props.item.id)}
-                    >
-                        X
-                    </span>
-            </div>
-        )
-    }
+                    X
+                </span> */}
+        </li>
+    )
 }
+
+export default TodoItem;

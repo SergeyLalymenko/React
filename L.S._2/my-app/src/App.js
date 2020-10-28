@@ -1,67 +1,28 @@
-import React, { Component } from 'react'
-import TodoForm from './components/TodoForm/TodoForm'
+import React from 'react'
+// import TodoForm from './components/TodoForm/TodoForm'
 import TodoList from './components/TodoList/TodoList'
 import './App.css'
 
-export default class App extends Component {
+export default function App(){
 
-  state = {
-    todoListItems: [
-      {
-        id: 1,
-        title: 'Task 1',
-        isDone: true,
-      },
-      {
-        id: 2,
-        title: 'Task 2',
-        isDone: true,
-      },
-      {
-        id: 3,
-        title: 'Task 3',
-        isDone: false,
-      },
-      {
-        id: 4,
-        title: 'Task 4',
-        isDone: true,
-      },
-    ],
-  };
+  // deleteTodo = ((e, id) => {
+  //   e.stopPropagation();
+  //   this.setState({
+  //     todoListItems: this.state.todoListItems.filter((item) => item.id !== id)
+  //   })
+  // })
 
-  toggleTodo = ((id) => {
-    this.setState({
-      todoListItems: this.state.todoListItems.map((item) => {
-        if(item.id !== id){
-          return item;
-        }
-        return {...item, isDone: !item.isDone};
-      })
-    })
-  });
+  // addTodo = ((title) => {
+  //   if(title !== ''){
+  //       this.setState({
+  //         todoListItems: [...this.state.todoListItems, {id: Date.now(),title: title,isDone: false}]
+  //       })
+  //   }
+  // })
 
-  deleteTodo = ((e, id) => {
-    e.stopPropagation();
-    this.setState({
-      todoListItems: this.state.todoListItems.filter((item) => item.id !== id)
-    })
-  })
-
-  addTodo = ((title) => {
-    if(title !== ''){
-        this.setState({
-          todoListItems: [...this.state.todoListItems, {id: Date.now(),title: title,isDone: false}]
-        })
-    }
-  })
-
-  render() {
-    return (
-      <div className="app-container">
-        <TodoList todos={this.state.todoListItems} onToggle={this.toggleTodo} onDelete={this.deleteTodo}/>
-        <TodoForm onAddTodo={this.addTodo}/>
-      </div>
-    )
-  }
+  return (
+    <div className="app-container">
+      <TodoList/>
+    </div>
+  )
 }

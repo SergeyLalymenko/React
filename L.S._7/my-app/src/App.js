@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
+import { connect } from 'react-redux'
+import { setContacts, setContact, setForm, setNewContact, deleteContact } from './store/actions'
 import ContactsForm from './components/ContactsForm/ContactsForm'
 import ContactsList from './components/ContactsList/ContactsList'
 import contactsService from './contactsService'
 import './App.css'
 
 
-function App(){
-
-  const [contacts, setContacts] = useState([]);
-  const [form, setForm] = useState(getEmptyForm());
+function App({contacts, form, setContacts, setForm, setContact, setNewContact, deleteContact}){
 
 
 
@@ -47,20 +46,14 @@ function App(){
   }
 
   function changeContact(){
-    const newContacts = contacts.map((item) => {
-      if(item.id !== form.targetElementId){
-        return item;
-      } else{
-        return {
-          name: form.name,
-          surname: form.surname,
-          phone: form.phone,
-          id: item.id,
-        }
-      }
-    });
-    setContacts(newContacts);
-    sendChangeContactRequest(newContacts);
+    const newContact = {
+      name: form.name,
+      surname: form.surname,
+      phone: form.phone,
+      id: form.targetElementId,
+    };
+    setContact(newContact);
+    sendChangeContactRequest(newContact);
   }
 
   function addContact(){
@@ -71,7 +64,7 @@ function App(){
     };
     contactsService.post('/', newContact)
       .then(({data}) => {
-        setContacts([...contacts, data]);
+        setNewContact(data);
         setForm(getEmptyForm());
       })
   }
@@ -92,15 +85,8 @@ function App(){
   }
 
   function onDeleteBtnClick(){
-    const newContacts = contacts.filter((item) => item.id !== form.targetElementId);
-    const newForm = {
-      name: '',
-      surname: '',
-      phone: '',
-      targetElementId: form.targetElementId,
-    }
-    setContacts(newContacts);
-    setForm(newForm);
+    deleteContact();
+    setForm(getEmptyForm());
     sendDeleteContactRequest();
   }
 
@@ -108,11 +94,10 @@ function App(){
     contactsService.delete('/' + form.targetElementId);
   }
 
-  function sendChangeContactRequest(elementsArray){
-    const selectedContact = elementsArray.find((item) => item.id === form.targetElementId);
-    contactsService.put('/' + form.targetElementId, selectedContact);
+  function sendChangeContactRequest(newContact){
+    contactsService.put('/' + form.targetElementId, newContact);
   }
-
+  
     return (
       <div className="app-container">
         <ContactsList contacts={contacts}
@@ -129,4 +114,19 @@ function App(){
     )
 }
 
-export default App;
+function mapStateToProps(state, props){
+  return {
+      contacts: state.contacts,
+      form: state.form
+  }
+}
+
+const mapDispatchToProps = {
+  setContacts,
+  setForm,
+  setContact,
+  setNewContact,
+  deleteContact
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)
