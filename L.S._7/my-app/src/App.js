@@ -12,10 +12,11 @@ function App({contacts, form, setContacts, setForm, setContact, setNewContact, d
 
 
   useEffect(() => {
-    contactsService.get('/')
-      .then(({data}) => {
-        setContacts(data);
-      });
+    setContacts();
+    // contactsService.get('/')
+    //   .then(({data}) => {
+    //     setContacts(data);
+    //   });
     }, [])
 
   function fillContactForm(id){
@@ -52,8 +53,9 @@ function App({contacts, form, setContacts, setForm, setContact, setNewContact, d
       phone: form.phone,
       id: form.targetElementId,
     };
-    setContact(newContact);
-    sendChangeContactRequest(newContact);
+    // setContact(newContact);
+    setContact(form.targetElementId, newContact);
+    // sendChangeContactRequest(newContact);
   }
 
   function addContact(){

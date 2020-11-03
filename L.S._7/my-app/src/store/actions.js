@@ -1,9 +1,16 @@
+import contactsService from '../contactsService'
+
+// export const SET_CONTACTS_ACTION = 'SET_CONTACTS_ACTION'
+// export function setContacts(payload){
+//     return {
+//         type: SET_CONTACTS_ACTION,
+//         payload
+//     }
+// }
+
 export const SET_CONTACTS_ACTION = 'SET_CONTACTS_ACTION'
-export function setContacts(payload){
-    return {
-        type: SET_CONTACTS_ACTION,
-        payload
-    }
+export const setContacts = () => (dispatch) => {
+    contactsService.get('/').then(({data}) => dispatch({type:SET_CONTACTS_ACTION, payload: data}));
 }
 
 export const SET_FORM_ACTION = 'SET_FORM_ACTION'
@@ -13,15 +20,15 @@ export function setForm(payload){
         payload
     }
 }
-
+///////////////////////////////////////////////////////////////
 export const SET_CONTACT_ACTION = 'SET_CONTACT_ACTION'
-export function setContact(payload){
-    return {
-        type: SET_CONTACT_ACTION,
-        payload
-    }
+export const setContact = (id, contact) => (dispatch) => {
+    contactsService.put('/' + id, contact)
+        .then(({data}) => {
+            dispatch({type: SET_CONTACT_ACTION, payload: data})
+        })
 }
-
+///////////////////////////////////////////////////////////////
 export const SET_NEW_CONTACT_ACTION = 'SET_NEW_CONTACT_ACTION'
 export function setNewContact(payload){
     return {
