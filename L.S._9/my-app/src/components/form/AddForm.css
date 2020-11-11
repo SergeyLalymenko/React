@@ -1,0 +1,33 @@
+.add-form-container{
+    display:flex;
+    flex-direction:column;
+    width:20vw;
+    margin-left: 40vw;
+    margin-top:100px;
+    background-color:rgb(97, 163, 67);
+    border:1px solid black;
+}
+
+.add-form-input{
+    display:flex;
+    margin:5px;
+    height:20px;
+}
+
+.add-form-button{
+    display:flex;
+    width:100px;
+    justify-content:center;
+    margin: 5px auto;
+}
+
+.form-delete-btn{
+    display:flex;
+    width:100px;
+    justify-content:center;
+    margin: 5px auto;
+}
+
+.none{
+    display:none;
+}

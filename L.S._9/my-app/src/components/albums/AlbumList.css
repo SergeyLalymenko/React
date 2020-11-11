@@ -1,0 +1,10 @@
+.albums-list-ul{
+    display:flex;
+    flex-direction:column;
+}
+
+.albums-list-li{
+    display:flex;
+    font-size:18px;
+    margin:3px;
+}

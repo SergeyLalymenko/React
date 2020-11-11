@@ -1,0 +1,23 @@
+.header{
+    display:flex;
+    height:100%;
+    background-color:gray;
+    border:1px solid black;
+}
+
+.header-ul{
+    display:flex;
+    width:20vw;
+    justify-content:space-between;
+    flex-direction:row;
+}
+
+.header-li{
+    display:flex;
+    text-decoration:none;
+    font-size:22px;
+}
+
+.selected{
+    text-decoration:none;
+}

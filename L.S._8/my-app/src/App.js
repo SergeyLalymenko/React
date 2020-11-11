@@ -1,20 +1,20 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { setTodo, setTodos, deleteTodo, setForm, addTodo } from './store/actions/actions'
+import { toggleTodo, getTodos, deleteTodo, addTodo } from './store/actions/actions'
 import TodoForm from './components/TodoForm/TodoForm'
 import TodoList from './components/TodoList/TodoList'
 import './App.css'
 
-function App({list, form, setTodo, setTodos, deleteTodo, setForm, addTodo}){
+function App({list, form, toggleTodo, getTodos, deleteTodo, addTodo}){
 
   useEffect(() => {
-    setTodos();
+    getTodos();
   }, [])
 
   return (
     <div className="app-container">
-      <TodoList list={list} onToggle={setTodo} onDelete={deleteTodo}/>
-      <TodoForm form={form} onHandleChange={setForm} onAddTodo={addTodo}/>
+      <TodoList list={list} onToggle={toggleTodo} onDelete={deleteTodo}/>
+      <TodoForm form={form} onAddTodo={addTodo}/>
     </div>
   )
 }
@@ -28,10 +28,9 @@ function mapStateToProps(state){
 }
 
 const mapDispatchToProps = {
-  setTodo,
-  setTodos,
+  toggleTodo,
+  getTodos,
   deleteTodo,
-  setForm,
   addTodo,
 }
 
