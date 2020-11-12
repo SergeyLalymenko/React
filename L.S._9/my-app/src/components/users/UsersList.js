@@ -11,13 +11,13 @@ function UsersList({list, onChangeUserClick, onAddBtnClick}) {
                         <NavLink to={`/albums?userId=${id}`}>
                             {`${name} ${username}`}
                         </NavLink>
-                        <NavLink to={`/form/${id}`} className="users-red" onClick={() => onChangeUserClick(id)}>
+                        <NavLink to={`/users/form/${id}`} className="users-red" onClick={() => onChangeUserClick(id)}>
                             Ред
                         </NavLink>
                     </li>
                 )
             })}
-            <button className="users-add-btn"><NavLink to={`/form`} onClick={onAddBtnClick}>Add</NavLink></button>
+            <button className="users-add-btn"><NavLink to={`/users/form`} onClick={onAddBtnClick}>Add</NavLink></button>
         </ul>
     )
 }

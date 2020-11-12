@@ -2,7 +2,8 @@ import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import './AddForm.css'
 
-function AddForm({onSaveBtnClick, onHandleChange, onDeleteBtnClick, form}) {
+
+function AddForm({onHandleChange, onSaveBtnClick, onDeleteBtnClick, form}) {
 
     const history = useHistory();
     const {id} = useParams();
