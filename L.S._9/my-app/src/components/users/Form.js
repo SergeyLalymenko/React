@@ -1,6 +1,6 @@
 import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import './AddForm.css'
+import './Form.css'
 
 
 function AddForm({onHandleChange, onSaveBtnClick, onDeleteBtnClick, form}) {
