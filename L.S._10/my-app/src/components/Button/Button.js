@@ -1,9 +1,10 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom'
 
 function Button(props) {
     return (
         <button onClick={props.onAddButtonClick} style={buttonStyles}>
-            Add
+            <NavLink to='/form'>Add</NavLink>
         </button>
     )
 }
