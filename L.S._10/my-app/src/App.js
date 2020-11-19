@@ -30,7 +30,7 @@ function App({stickers, fetchStickers, changeStickerLocal, changeSticker, delete
   }
 
   function onStickerMove(e){
-    changeStickerLocal(e, selectedSticker, shiftX, shiftY);
+    changeStickerLocal(e.pageX, e.pageY, selectedSticker, shiftX, shiftY);
   }
 
   function onStickerUp(){

@@ -1,13 +1,11 @@
 import React from 'react'
 import { Field, Form, Formik } from 'formik'
 import { useHistory, useParams } from 'react-router-dom'
-import * as Yup from 'yup'
 
 function StickerForm({onSaveBtnClick, stickers}) {
 
     const {goBack} = useHistory();
     const {id} = useParams();
-    const validationSchema = Yup.object().shape({description: Yup.string().max(255)});
 
     function onFormikSubmit(values){
         onSaveBtnClick(values, id);
@@ -32,7 +30,8 @@ function StickerForm({onSaveBtnClick, stickers}) {
             <Form style={formikStyles}>
                 <Field name="title" style={formikElementStyles} validate={validateTitle}/>
                 {props.errors.title && props.touched.title ? <div>{props.errors.title}</div> : null}
-                <Field name="description" style={formikElementStyles}/>
+                <Field name="description" style={formikElementStyles} validate={validateDescription}/>
+                {props.errors.description && props.touched.description ? <div>{props.errors.description}</div> : null}
                 <button type="submit" style={formikBtn} disabled={!props.isValid}>Save</button>
                 <button type="button" onClick={onCancelClick} style={formikBtn}>Cancel</button>
             </Form>
@@ -43,10 +42,14 @@ function StickerForm({onSaveBtnClick, stickers}) {
         return value ? null : 'Поле не может быть пустым!';
     }
 
+    function validateDescription(value){
+        return value.length <= 255 ? null : 'Слишком много символов!';
+    }
+
     return (
         <div style={modalStyles}>
             <div>
-                <Formik initialValues={id ? getStickerValues(id) : getEmptyValues()} onSubmit={onFormikSubmit} validationSchema={validationSchema}>
+                <Formik initialValues={id ? getStickerValues(id) : getEmptyValues()} onSubmit={onFormikSubmit}>
                     {renderForm}
                 </Formik>
             </div>

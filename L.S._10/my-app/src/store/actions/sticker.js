@@ -12,11 +12,11 @@ export const saveSticker = (id) => (dispatch, getState) => {
     api.put('/' + id, selectedSticker);
 }
 
-export const changeStickerLocal = (e, selectedSticker, shiftX, shiftY) => {
+export const changeStickerLocal = (pageX, pageY, selectedSticker, shiftX, shiftY) => {
     const changedSticker = {
         ...selectedSticker,
-        x: e.pageX - shiftX,
-        y: e.pageY - shiftY,
+        x: pageX - shiftX,
+        y: pageY - shiftY,
     }
     return {
         type: CHANGE_STICKER,
